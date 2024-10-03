@@ -19,13 +19,13 @@ function NavBar() {
           <input
             type="text"
             placeholder="Search Movies"
-            className="h-10 rounded-l-md bg-orange-100 pl-2 pr-16 outline-none"
+            className="h-10 rounded-l-md bg-orange-200 pl-2 pr-16 outline-none"
           />
           <button
             type="submit"
-            className="h-10 rounded-r-md bg-orange-100 px-2"
+            className="h-10 rounded-r-md bg-orange-200 px-2"
           >
-            <FiSearch className="h-6 w-6 bg-orange-100 text-orange-500" />
+            <FiSearch className="h-6 w-6 bg-orange-200 text-orange-500" />
           </button>
         </form>
       </div>
