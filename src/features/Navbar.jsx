@@ -15,7 +15,7 @@ function NavBar() {
       </div>
 
       <div className="mt-1 flex items-center justify-center bg-slate-950">
-        <form className="ml-[14rem] flex items-center justify-center bg-slate-950">
+        <form className="ml-[32rem] flex items-center justify-center bg-slate-950">
           <input
             type="text"
             placeholder="Search Movies"

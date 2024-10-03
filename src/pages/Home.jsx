@@ -1,5 +1,10 @@
+import TrendingHome from "../ui/TrendingHome";
 function Home() {
-  return <div></div>;
+  return (
+    <div>
+      <TrendingHome />
+    </div>
+  );
 }
 
 export default Home;
