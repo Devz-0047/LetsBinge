@@ -1,7 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-* {
-  background-color: #27272a;
-  color: #ea580c;
+/* For WebKit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(253 186 116); /* Background of the scrollbar track */
+  border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(194 65 12); /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(249 115 22); /* Color when hovered */
+}
+
+/* For Firefox */
+.scrollable-element {
+  scrollbar-width: thin; /* Makes scrollbar thin */
+  scrollbar-color: #555 #f1f1f1; /* thumb color, track color */
+}
+
+/* If you want to change the thumb color on hover in Firefox */
+.scrollable-element:hover {
+  scrollbar-color: #555 #f1f1f1; /* thumb color, track color when hovered */
 }
