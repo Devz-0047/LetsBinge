@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "./Spinner";
 import axios from "axios";
+import { FiX } from "react-icons/fi";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 function MoviePage() {
@@ -12,6 +13,7 @@ function MoviePage() {
   const [cast, setCast] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
@@ -102,6 +104,14 @@ function MoviePage() {
             </h2>
             <p className="text-md text-orange-300">{movie.overview}</p>
           </div>
+          <button
+            className="self-start"
+            onClick={() => {
+              navigate(`/`);
+            }}
+          >
+            <FiX className="h-6 w-6 cursor-pointer rounded-md bg-orange-200 text-orange-400 hover:bg-orange-600" />
+          </button>
         </>
       )}
     </div>

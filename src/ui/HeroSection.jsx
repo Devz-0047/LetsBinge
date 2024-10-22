@@ -2,8 +2,8 @@
 function HeroSection() {
   return (
     <div className="relative flex h-screen w-full items-center justify-center">
-      <div className="bg-heroSection absolute inset-0 bg-cover bg-center bg-no-repeat opacity-75"></div>
-      <p className="relative z-10 text-3xl text-orange-600">
+      <div className="absolute inset-0 bg-heroSection bg-cover bg-center bg-no-repeat opacity-75"></div>
+      <p className="relative z-10 text-6xl text-orange-600">
         Welcome to letsbinge, Register Now
       </p>
     </div>

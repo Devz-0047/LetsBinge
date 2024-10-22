@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        heroSection: "url('./src/assets/heroSection.webp')",
+        heroSection: "url('/heroSection.webp')",
       },
     },
   },
