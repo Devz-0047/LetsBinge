@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Library from "./pages/Library";
 import Trending from "./pages/Trending";
 import NotFound from "./pages/NotFound";
+import MoviePage from "./ui/MoviePage";
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +20,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Library" element={<Library />} />
         <Route path="/Trending" element={<Trending />} />
+        <Route path="/movie/:id" element={<MoviePage />} />
+        {"Dynamic route "}
+        {/* Dynamic route */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

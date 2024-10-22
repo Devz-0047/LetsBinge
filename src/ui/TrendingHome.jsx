@@ -2,12 +2,15 @@ import axios from "axios";
 
 import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
+import { useNavigate } from "react-router-dom";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 export default function TrendingHome() {
   const [trendingMovie, setTrendingMovie] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  // navigate(`/movie/${movie.id}`) =   window.location.href = `/movie/${movie.id}`;
   //https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}
 
   useEffect(() => {
@@ -53,8 +56,11 @@ export default function TrendingHome() {
               <ul className="bg-slate-950">
                 {trendingMovie.map((movie) => (
                   <li
-                    className="mb-[0.12rem] rounded-md border border-orange-400 bg-slate-950 pl-1 font-semibold text-orange-400 shadow-md"
+                    className="mb-[0.12rem] cursor-pointer rounded-md border border-orange-400 bg-slate-950 pl-1 font-semibold text-orange-400 shadow-md hover:bg-orange-500"
                     key={movie.id}
+                    onClick={() => {
+                      navigate(`/movie/${movie.id}`);
+                    }}
                   >
                     <div className="flex items-center justify-center gap-2 bg-slate-950 py-2">
                       <div>

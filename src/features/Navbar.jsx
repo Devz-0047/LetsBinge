@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { FiSearch, FiX } from "react-icons/fi";
 import { LuUserCheck } from "react-icons/lu";
@@ -32,6 +32,7 @@ function NavBar() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
   useEffect(() => {
     let cancel;
     const fetchMovies = async () => {
@@ -53,6 +54,7 @@ function NavBar() {
           console.log("Previous request canceled");
         } else {
           setError("Failed to fetch books");
+          // console.log(error);
         }
       } finally {
         setLoading(false);
@@ -147,6 +149,13 @@ function NavBar() {
                     <li
                       key={movie.id}
                       className="flex cursor-pointer items-center border-b bg-orange-200 p-3"
+                      onClick={() => {
+                        setSearchMovie("");
+                        setMovies([]);
+
+                        navigate(`/movie/${movie.id}`);
+                        // navigate(`/movie/${movie.id}`) =   window.location.href = `/movie/${movie.id}`;
+                      }}
                     >
                       <img
                         src={getMovieCoverUrl(movie)}
@@ -159,6 +168,9 @@ function NavBar() {
                         </strong>
                         <p className="text-md font-md bg-orange-200 text-sm text-orange-600">
                           {getGenreNames(movie.genre_ids)}
+                        </p>
+                        <p className="text-md font-md bg-orange-200 text-sm text-orange-600">
+                          {movie.release_date.split("-")[0]}
                         </p>
                       </div>
                     </li>
