@@ -1,17 +1,33 @@
 import { useState } from "react";
 import { FaFire } from "react-icons/fa";
 function Trending() {
-  const [today, setToday] = useState(true);
+  const [timeWindow, setTimeWindow] = useState("Today");
   const [popular, setPopular] = useState("streaming");
-  const toggleToday = () => {
-    setToday((m) => !m);
-  };
 
   return (
-    <div className="mt-[6rem] flex h-[100vh] items-center justify-center bg-slate-950 text-5xl text-orange-500">
-      <div className="flex">
-        <FaFire className="text-orange-600" />
-        <p>Trending</p>
+    <div>
+      <div className="mt-[6rem] flex h-[100vh] flex-col items-center justify-start gap-4 bg-slate-950">
+        <div className="flex">
+          <FaFire className="text-5xl text-orange-600" />
+          <p className="text-5xl text-orange-500">Trending</p>
+        </div>
+        <div className="ml-4 self-start font-semibold">
+          <div>
+            <button
+              className={`rounded-l-md ${timeWindow === "Today" ? "bg-orange-400" : "bg-orange-300"} px-4 py-1 text-2xl text-orange-900 hover:bg-orange-500 active:bg-orange-500`}
+              onClick={() => setTimeWindow("Today")}
+            >
+              Today
+            </button>
+            <button
+              className={`rounded-r-md ${timeWindow === "This Week" ? "bg-orange-400" : "bg-orange-300"} px-4 py-1 text-2xl text-orange-900 hover:bg-orange-500`}
+              onClick={() => setTimeWindow("This Week")}
+            >
+              This Week
+            </button>
+          </div>
+          <div></div>
+        </div>
       </div>
     </div>
   );
