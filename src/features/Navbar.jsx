@@ -26,7 +26,16 @@ const genresList = [
   { id: 53, name: "Thriller" },
   { id: 10752, name: "War" },
   { id: 37, name: "Western" },
+  { id: 10759, name: "Action & Adventure" },
+  { id: 10765, name: "Sci-Fi & Fantasy" },
+  { id: 10768, name: "News" },
+  { id: 37, name: "Western" },
+  { id: 10766, name: "Soap" },
+  { id: 10767, name: "Talk" },
+  { id: 10768, name: "Reality" },
+  { id: 10769, name: "Game Show" },
 ];
+
 function NavBar() {
   const [searchMovie, setSearchMovie] = useState("");
   const [movies, setMovies] = useState([]);
@@ -44,8 +53,9 @@ function NavBar() {
       setError(null);
       try {
         if (cancel) cancel();
+
         const response = await axios.get(
-          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchMovie}`,
+          `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${searchMovie}`,
           { cancelToken: new axios.CancelToken((c) => (cancel = c)) },
         );
         setMovies(response.data.results.slice(0, 5));
@@ -85,10 +95,13 @@ function NavBar() {
     return "https://via.placeholder.com/150x200?text=No+Poster";
   };
   const getGenreNames = (genreIds) => {
+    if (!Array.isArray(genreIds)) {
+      return [];
+    }
     return genreIds
       .map((id) => {
         const genre = genresList.find((g) => g.id === id); // Find the genre by ID
-        return genre ? genre.name : null;
+        return genre ? genre.name : "";
       })
       .filter(Boolean)
       .join(", "); // Filter out any null values and join genres
@@ -112,7 +125,7 @@ function NavBar() {
         >
           <input
             type="text"
-            placeholder="Search Movies"
+            placeholder="Search Movies/Series"
             className="font-weight-bold h-10 rounded-l-md rounded-r-none bg-orange-200 pl-2 pr-16 text-lg text-orange-700 outline-none placeholder:text-orange-500"
             onChange={(e) => setSearchMovie(e.target.value)}
             value={searchMovie}
@@ -164,13 +177,15 @@ function NavBar() {
                       />
                       <div className="bg-orange-200">
                         <strong className="bg-orange-200 text-orange-700">
-                          {movie.title}
+                          {movie.title || movie.name}
                         </strong>
                         <p className="text-md font-md bg-orange-200 text-sm text-orange-600">
                           {getGenreNames(movie.genre_ids)}
                         </p>
                         <p className="text-md font-md bg-orange-200 text-sm text-orange-600">
-                          {movie.release_date.split("-")[0]}
+                          {movie.release_date?.split("-")[0] ||
+                            movie.first_air_date?.split("-")[0] ||
+                            "N/A"}
                         </p>
                       </div>
                     </li>

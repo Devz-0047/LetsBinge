@@ -72,7 +72,7 @@ function TopRatted({ topRatted }) {
                 <li
                   className="min-w-[10rem] cursor-pointer bg-slate-900 hover:shadow-md"
                   key={trendingMovie.id}
-                  onClick={() => navigate(`/movie/${trendingMovie.id}`)}
+                  onClick={() => navigate(`/series/${trendingMovie.id}`)}
                 >
                   <img
                     src={`https://image.tmdb.org/t/p/w154${trendingMovie.poster_path}`}
