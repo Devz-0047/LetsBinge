@@ -5,10 +5,10 @@ import axios from "axios";
 import { FiX } from "react-icons/fi";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-function MoviePage() {
+function SeriesPage() {
   const { id } = useParams();
   console.log(useParams());
-  const [movie, setMovie] = useState(null);
+  const [series, setSeries] = useState(null);
   const [director, setDirector] = useState(null);
   const [cast, setCast] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,12 +20,12 @@ function MoviePage() {
         setLoading(true);
         setError(null);
         const response = await axios.get(
-          `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`,
+          `https://api.themoviedb.org/3/tv/${id}?api_key=${API_KEY}`,
         );
-        setMovie(response.data);
+        setSeries(response.data);
         // Fetch movie credits (cast and crew)
         const creditsResponse = await axios.get(
-          `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}`,
+          `https://api.themoviedb.org/3/tv/${id}/credits?api_key=${API_KEY}`,
         );
         const crew = creditsResponse.data.crew;
         const castData = creditsResponse.data.cast;
@@ -62,30 +62,34 @@ function MoviePage() {
         <>
           <div>
             <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
+              src={`https://image.tmdb.org/t/p/w500${series.poster_path}`}
+              alt={series.name}
               className="h-[700px] w-[500px]"
             />
           </div>
           <div className="max-h-[700px] max-w-[500px]">
             <h1 className="text-4xl font-semibold text-orange-600">
-              {movie.title}
+              {series.original_name}
             </h1>
             <p className="text-2xl font-semibold text-orange-500">
-              {`${movie.vote_average.toFixed(1)} / 10`}
+              {`${series.vote_average.toFixed(1)} / 10`}
             </p>
             <p className="text-xl font-semibold text-orange-400">
-              {movie.release_date.split("-")[0]}
+              {series.first_air_date.split("-")[0]}
             </p>
             {/* <p className="text-xl text-orange-400">{movie.overview}</p> */}
 
             {/* Display genres */}
-            {movie.genres && (
+            {series.genres && (
               <p className="text-xl text-orange-500">
                 <strong>Genres:</strong>{" "}
-                {movie.genres.map((genre) => genre.name).join(", ")}
+                {series.genres.map((genre) => genre.name).join(", ")}
               </p>
             )}
+            <p className="text-xl text-orange-500">
+              <strong>Seasons: </strong>
+              {series.number_of_seasons}
+            </p>
 
             <h2 className="text-xl text-orange-500">
               <strong>Cast:</strong>
@@ -102,7 +106,7 @@ function MoviePage() {
             <h2 className="text-xl text-orange-500">
               <strong>Description:</strong>
             </h2>
-            <p className="text-md text-orange-300">{movie.overview}</p>
+            <p className="text-md text-orange-300">{series.overview}</p>
           </div>
           <button
             className="self-start"
@@ -118,4 +122,4 @@ function MoviePage() {
   );
 }
 
-export default MoviePage;
+export default SeriesPage;

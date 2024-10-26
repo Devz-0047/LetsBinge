@@ -7,9 +7,10 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Library from "./pages/Library";
-import Trending from "./pages/Trending";
+import Discover from "./pages/Discover";
 import NotFound from "./pages/NotFound";
 import MoviePage from "./ui/MoviePage";
+import SeriesPage from "./ui/SeriesPage";
 function App() {
   return (
     <BrowserRouter>
@@ -19,8 +20,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Library" element={<Library />} />
-        <Route path="/Trending" element={<Trending />} />
+        <Route path="/Discover" element={<Discover />} />
         <Route path="/movie/:id" element={<MoviePage />} />
+        <Route path="/series/:id" element={<SeriesPage />} />
         {"Dynamic route "}
         {/* Dynamic route */}
         <Route path="*" element={<NotFound />} />

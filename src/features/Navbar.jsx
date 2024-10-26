@@ -195,8 +195,8 @@ function NavBar() {
             </NavLink>
           </li>
           <li className="bg-slate-950">
-            <NavLink className="bg-slate-950" to="/Trending">
-              Trending
+            <NavLink className="bg-slate-950" to="/Discover">
+              Discover
             </NavLink>
           </li>
           <li className="bg-slate-950">

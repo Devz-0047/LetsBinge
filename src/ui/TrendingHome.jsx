@@ -25,7 +25,7 @@ export default function TrendingHome() {
             cancelToken: new axios.CancelToken((c) => (cancel = c)),
           },
         );
-        console.log(response); // This should now show the response in the console
+
         setTrendingMovie(response.data.results.slice(0, 5)); // Store movie results if needed
       } catch (err) {
         setError(err); // Set the error state
