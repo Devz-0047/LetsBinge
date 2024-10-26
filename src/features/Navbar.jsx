@@ -163,10 +163,12 @@ function NavBar() {
                       key={movie.id}
                       className="flex cursor-pointer items-center border-b bg-orange-200 p-3"
                       onClick={() => {
+                        let type =
+                          movie.media_type === "tv" ? "series" : "movie";
                         setSearchMovie("");
                         setMovies([]);
 
-                        navigate(`/movie/${movie.id}`);
+                        navigate(`/${type}/${movie.id}`);
                         // navigate(`/movie/${movie.id}`) =   window.location.href = `/movie/${movie.id}`;
                       }}
                     >
