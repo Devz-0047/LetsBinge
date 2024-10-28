@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import TopRattedSeries from "./topRattedSeries";
+import TopRattedSeries from "./TopRattedSeries";
 import TopRattedMovies from "./TopRattedMovies";
 function TopRattedContent() {
   const { topRatted } = useParams();
