@@ -4,7 +4,7 @@ function Series({ id, poster_path, title, release_date, vote_average }) {
   const navigate = useNavigate();
   return (
     <div
-      className="max-h-[18rem] min-w-[10rem] max-w-[11rem] cursor-pointer rounded-md bg-slate-900 hover:shadow-md"
+      className="max-h-[18rem] min-w-[10rem] max-w-[10rem] cursor-pointer rounded-md bg-slate-900 hover:shadow-md"
       onClick={() => {
         navigate(`/movie/${id}`);
       }}
