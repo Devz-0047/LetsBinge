@@ -110,7 +110,7 @@ function MoviePage() {
               navigate(-1);
             }}
           >
-            <FiX className="h-6 w-6 cursor-pointer rounded-md bg-orange-200 text-orange-400 hover:bg-orange-600" />
+            <FiX className="h-6 w-6 cursor-pointer rounded-md bg-orange-200 text-orange-500 hover:bg-orange-600" />
           </button>
         </>
       )}

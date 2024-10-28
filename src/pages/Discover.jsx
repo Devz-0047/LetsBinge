@@ -1,17 +1,20 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { FaFire } from "react-icons/fa";
 import MovieCard from "../ui/MovieCard";
 import SeriesCard from "../ui/SeriesCard";
 import { FaTrophy } from "react-icons/fa";
 import TopRatted from "../ui/TopRatted";
+import Spinner from "../ui/Spinner";
+import { Outlet } from "react-router-dom";
 function Trending() {
   const [timeWindowMovies, setTimeWindowMovies] = useState("day");
   const [timeWindowSeries, setTimeWindowSeries] = useState("day");
   const [topRatted, setTopRatted] = useState("movie");
 
   return (
-    <div className="h-[100vh]">
-      <div className="mt-[6rem] flex flex-col items-center justify-start gap-4 bg-slate-950">
+    <div>
+      {/* <Outlet /> */}
+      <div className="mt-[6rem] flex flex-col items-center justify-start gap-4 bg-slate-950 pl-2">
         <div className="flex">
           <FaFire className="text-5xl text-orange-600" />
           <p className="text-[2.6rem] text-orange-500">Trending Movies</p>
@@ -38,7 +41,9 @@ function Trending() {
             </button>
           </div>
           <div className="mt-4">
-            <MovieCard timeWindowMovies={timeWindowMovies} />
+            <Suspense fallback={<Spinner />}>
+              <MovieCard timeWindowMovies={timeWindowMovies} />
+            </Suspense>
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
+import { CgMoreR } from "react-icons/cg";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
@@ -65,6 +66,13 @@ function MovieCard({ timeWindowMovies }) {
                 </div>
               </li>
             ))}
+            <button
+              onClick={() => {
+                navigate("/Trending/movies");
+              }}
+            >
+              <CgMoreR className="text-2xl text-orange-500 hover:text-orange-600" />
+            </button>
           </ul>
         </div>
       ) : (

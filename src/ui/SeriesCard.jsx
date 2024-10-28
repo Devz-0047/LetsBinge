@@ -41,7 +41,7 @@ function SeriesCard({ timeWindowSeries }) {
           <ul className="flex items-center justify-start gap-4">
             {trendingMovies.map((trendingMovie) => (
               <li
-                className="min-w-[10rem] cursor-pointer bg-slate-900 hover:shadow-md"
+                className="min-w-[10rem] max-w-[12rem] cursor-pointer bg-slate-900 hover:shadow-md"
                 key={trendingMovie.id}
                 onClick={() => {
                   navigate(`/series/${trendingMovie.id}`);

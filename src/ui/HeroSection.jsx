@@ -5,8 +5,9 @@ function HeroSection() {
       <div className="absolute inset-0 bg-heroSection bg-cover bg-center bg-no-repeat opacity-75"></div>
       <p className="relative z-10 text-6xl text-orange-600">
         Welcome to letsbinge, Register Now{" "}
-        <p className="text-red-600">
-          This website is currently under development
+        <p className="font-bold text-red-600">
+          This website is currently under development, Library page is yet to
+          complete.
         </p>
       </p>
     </div>
