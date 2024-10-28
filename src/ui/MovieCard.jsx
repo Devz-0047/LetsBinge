@@ -68,7 +68,7 @@ function MovieCard({ timeWindowMovies }) {
             ))}
             <button
               onClick={() => {
-                navigate("/Trending/movies");
+                navigate(`/Trending/movies/${timeWindowMovies}`);
               }}
             >
               <CgMoreR className="text-2xl text-orange-500 hover:text-orange-600" />

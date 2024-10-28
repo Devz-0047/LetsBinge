@@ -14,6 +14,7 @@ import SeriesPage from "./ui/SeriesPage";
 // import Footer from "./ui/Footer";
 import TrendingSeries from "./ui/TrendingSeries";
 import TrendingMovies from "./ui/TrendingMovies";
+import TopRattedContent from "./ui/TopRattedContent";
 function App() {
   return (
     <BrowserRouter>
@@ -24,10 +25,15 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Library" element={<Library />} />
         <Route path="/Discover" element={<Discover />} />
-        <Route path="/Trending/movies" element={<TrendingMovies />} />
-        <Route path="/Trending/series" element={<TrendingSeries />} />
-        <Route path="/top ratted/movies" element={<TrendingMovies />} />
-        <Route path="/top ratted/series" element={<TrendingSeries />} />
+        <Route
+          path="/Trending/movies/:timeWindowMovies"
+          element={<TrendingMovies />}
+        />
+        <Route
+          path="/Trending/series/:timeWindowSeries"
+          element={<TrendingSeries />}
+        />
+        <Route path="/top+ratted/:topRatted" element={<TopRattedContent />} />
 
         <Route path="/movie/:id" element={<MoviePage />} />
         <Route path="/series/:id" element={<SeriesPage />} />

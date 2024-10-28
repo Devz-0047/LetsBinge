@@ -2,12 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Series from "./Series";
 import Spinner from "./Spinner";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-function TrendingSeries() {
+function TopRattedSeries() {
   const navigate = useNavigate();
-  const { timeWindowSeries } = useParams();
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -29,7 +28,7 @@ function TrendingSeries() {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://api.themoviedb.org/3/trending/tv/${timeWindowSeries}?api_key=${API_KEY}`,
+          `https://api.themoviedb.org/3/tv/top_rated?api_key=${API_KEY}&language=en-US&page=1`,
         );
         setTrendingMovies(response.data.results);
       } catch (err) {
@@ -43,7 +42,7 @@ function TrendingSeries() {
   return (
     <div className="bg-slate-950">
       <h2 className="mb-[2rem] mt-[6rem] text-center text-4xl font-semibold text-orange-500">
-        Trending Series
+        Highest Ratted Series
       </h2>
       {movieList.length > 0 ? (
         <ul className="ml-10 grid grid-cols-6 gap-4">
@@ -82,4 +81,4 @@ function TrendingSeries() {
   );
 }
 
-export default TrendingSeries;
+export default TopRattedSeries;

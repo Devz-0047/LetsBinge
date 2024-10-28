@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
+import { CgMoreR } from "react-icons/cg";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
@@ -41,7 +42,7 @@ function TopRatted({ topRatted }) {
             <ul className="flex items-center justify-start gap-4">
               {trendingMovies.map((trendingMovie) => (
                 <li
-                  className="min-w-[10rem] cursor-pointer bg-slate-900 hover:shadow-md"
+                  className="min-w-[10rem] max-w-[12rem] cursor-pointer bg-slate-900 hover:shadow-md"
                   key={trendingMovie.id}
                   onClick={() => navigate(`/movie/${trendingMovie.id}`)}
                 >
@@ -67,10 +68,10 @@ function TopRatted({ topRatted }) {
           </div>
         ) : (
           <div className="h-[20rem] w-full max-w-[100%] overflow-x-auto">
-            <ul className="flex items-center justify-start gap-4">
+            <ul className="flex items-center justify-start gap-2">
               {trendingMovies.map((trendingMovie) => (
                 <li
-                  className="min-w-[10rem] cursor-pointer bg-slate-900 hover:shadow-md"
+                  className="min-w-[8rem] max-w-[10rem] cursor-pointer bg-slate-900 hover:shadow-md"
                   key={trendingMovie.id}
                   onClick={() => navigate(`/series/${trendingMovie.id}`)}
                 >
@@ -92,6 +93,13 @@ function TopRatted({ topRatted }) {
                   </div>
                 </li>
               ))}
+              <button
+                onClick={() => {
+                  navigate(`/top+ratted/${topRatted}`);
+                }}
+              >
+                <CgMoreR className="text-2xl text-orange-500 hover:text-orange-600" />
+              </button>
             </ul>
           </div>
         )

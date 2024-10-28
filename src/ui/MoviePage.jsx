@@ -46,7 +46,7 @@ function MoviePage() {
   }, [id]);
   if (loading)
     return (
-      <div>
+      <div className="h-[100vh] bg-slate-950">
         <Spinner />
       </div>
     );

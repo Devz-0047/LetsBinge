@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
-function Series({id,poster_path,title,release_date,vote_average}) {
-    const navigate = useNavigate();
+function Series({ id, poster_path, title, release_date, vote_average }) {
+  const navigate = useNavigate();
   return (
     <div
       className="max-h-[18rem] min-w-[10rem] max-w-[11rem] cursor-pointer rounded-md bg-slate-900 hover:shadow-md"
@@ -20,6 +20,7 @@ function Series({id,poster_path,title,release_date,vote_average}) {
         <p className="text-sm text-orange-400">{vote_average.toFixed(1)}/10</p>
       </div>
     </div>
+  );
 }
 
 export default Series;

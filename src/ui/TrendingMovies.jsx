@@ -2,9 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Movie from "./Movie";
 import Spinner from "./Spinner";
+import { useParams } from "react-router-dom";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 function TrendingMovies() {
+  const { timeWindowMovies } = useParams();
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -26,7 +28,7 @@ function TrendingMovies() {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`,
+          `https://api.themoviedb.org/3/trending/movie/${timeWindowMovies}?api_key=${API_KEY}`,
         );
         setTrendingMovies(response.data.results);
       } catch (err) {
