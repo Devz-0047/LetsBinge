@@ -1,10 +1,13 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { FiSearch, FiX } from "react-icons/fi";
-import { LuUserCheck } from "react-icons/lu";
+// import { LuUserCheck } from "react-icons/lu";
+import { FaUserAltSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Spinner from "../ui/Spinner";
+import { useAuth } from "../hooks/useAuth";
+import { useGoogleSignIn } from "../hooks/useGoogleSignIn";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const genresList = [
   { id: 28, name: "Action" },
@@ -42,6 +45,9 @@ function NavBar() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { mutate: googleSignIn, isLoading: isSingnIn } = useGoogleSignIn();
+  const { data: session, isLoading: isSessionLoading } = useAuth();
+  const avatarUrl = session?.user?.user_metadata?.avatar_url;
   useEffect(() => {
     let cancel;
     const fetchMovies = async () => {
@@ -216,9 +222,20 @@ function NavBar() {
               Discover
             </NavLink>
           </li>
-          <li className="bg-slate-950">
-            <LuUserCheck className="h-[26px] w-[26px] bg-slate-950" />
-          </li>
+          {!session ? (
+            <li
+              className="cursor-pointer bg-slate-950"
+              onClick={() => {
+                googleSignIn();
+              }}
+            >
+              <FaUserAltSlash className="h-[26px] w-[26px] bg-slate-950" />
+            </li>
+          ) : (
+            <li className="bg-slate-950">
+              <img src={`${avatarUrl}`} className="h-8 rounded-full" />
+            </li>
+          )}
         </ul>
       </div>
     </div>

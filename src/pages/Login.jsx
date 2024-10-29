@@ -1,6 +1,8 @@
 import { useReducer, useState } from "react";
 import loginImage from "../assets/login.jpeg";
 import { login } from "../services/auth";
+import Google from "../assets/Google.png";
+import { useGoogleSignIn } from "../hooks/useGoogleSignIn";
 const initialState = {
   email: "",
   password: "",
@@ -24,6 +26,7 @@ const reducer = (state, action) => {
   }
 };
 export default function Login() {
+  const { mutate: googleSignIn, isLoading: isSingnIn } = useGoogleSignIn();
   const [state, dispatch] = useReducer(reducer, initialState);
   const [message, setMessage] = useState("");
   const handleSubmit = async (e) => {
@@ -39,7 +42,7 @@ export default function Login() {
     dispatch({ type: "RESET" });
   };
   return (
-    <div className="z-50 flex max-h-[45rem] max-w-3xl items-center justify-center gap-4 bg-stone-950 p-12 text-orange-500">
+    <div className="relative z-50 flex max-h-[45rem] max-w-3xl items-center justify-center gap-4 bg-stone-950 p-12 text-orange-500">
       <div>
         <h2 className="pt-4 text-[32px] font-semibold leading-8">
           Welcome Back, Let&apos;s Binge
@@ -114,9 +117,21 @@ export default function Login() {
 
           <button
             type="submit"
-            className="mb-2 mt-1.5 rounded-sm bg-orange-600 px-[8rem] py-1.5 text-[14px] text-gray-200"
+            className="mb-2 mt-1.5 rounded-sm bg-orange-500 px-[8rem] py-1.5 text-[14px] text-gray-200"
           >
             Login
+          </button>
+          <button
+            type="button"
+            className="mb-2 mt-1.5 flex items-center justify-start gap-2 rounded-sm bg-orange-600 px-[4.6rem] py-1.5 text-[14px] text-gray-200"
+            onClick={() => {
+              googleSignIn();
+            }}
+            disabled={isSingnIn}
+          >
+            {" "}
+            <img src={Google} className="h-6" />
+            <p>Login with google</p>
           </button>
           <div className="flex justify-start gap-1">
             <div>
@@ -132,6 +147,9 @@ export default function Login() {
       </div>
       <div>
         <img src={loginImage} alt="Login Image" className="pl-auto h-80 w-64" />
+      </div>
+      <div className="right-38 absolute top-1 text-sm text-orange-600">
+        Login In Through Email is not working, Continue with google login
       </div>
     </div>
   );
