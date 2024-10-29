@@ -39,7 +39,7 @@ export default function Login() {
     dispatch({ type: "RESET" });
   };
   return (
-    <div className="flex max-h-[45rem] max-w-3xl items-center justify-center gap-4 bg-stone-950 p-12 text-orange-500">
+    <div className="z-50 flex max-h-[45rem] max-w-3xl items-center justify-center gap-4 bg-stone-950 p-12 text-orange-500">
       <div>
         <h2 className="pt-4 text-[32px] font-semibold leading-8">
           Welcome Back, Let&apos;s Binge

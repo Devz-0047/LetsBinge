@@ -28,6 +28,7 @@
 import Footer from "../ui/Footer";
 import HeroSection from "../ui/HeroSection";
 import TrendingHome from "../ui/TrendingHome";
+import Login from "../pages/Login";
 
 function Home() {
   return (
@@ -40,6 +41,7 @@ function Home() {
 
         {/* Hero Section - 80% of the width */}
         <div className="flex w-5/6 items-center justify-center bg-slate-950">
+          {" "}
           <HeroSection />
         </div>
       </div>

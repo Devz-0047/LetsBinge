@@ -64,14 +64,21 @@ function TopRatted({ topRatted }) {
                   </div>
                 </li>
               ))}
+              <button
+                onClick={() => {
+                  navigate(`/top+ratted/${topRatted}`);
+                }}
+              >
+                <CgMoreR className="text-2xl text-orange-500 hover:text-orange-600" />
+              </button>
             </ul>
           </div>
         ) : (
           <div className="h-[20rem] w-full max-w-[100%] overflow-x-auto">
-            <ul className="flex items-center justify-start gap-2">
+            <ul className="flex items-center justify-start gap-4">
               {trendingMovies.map((trendingMovie) => (
                 <li
-                  className="min-w-[8rem] max-w-[10rem] cursor-pointer bg-slate-900 hover:shadow-md"
+                  className="min-w-[10rem] max-w-[12rem] cursor-pointer bg-slate-900 hover:shadow-md"
                   key={trendingMovie.id}
                   onClick={() => navigate(`/series/${trendingMovie.id}`)}
                 >
