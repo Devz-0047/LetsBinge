@@ -53,9 +53,9 @@ function MoviePage() {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="mt-[6rem] flex items-center justify-center gap-6 bg-slate-950">
+    <div className="flex items-center justify-center gap-6 bg-slate-950 pt-[6rem]">
       {loading ? (
-        <div className="bg-slate-950">
+        <div className="min-h-screen bg-slate-950">
           <Spinner />
         </div>
       ) : (

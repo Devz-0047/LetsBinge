@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import { useNavigate } from "react-router-dom";
+import { FaBookmark } from "react-icons/fa";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 export default function TrendingHome() {
@@ -56,7 +57,7 @@ export default function TrendingHome() {
               <ul className="bg-slate-950">
                 {trendingMovie.map((movie) => (
                   <li
-                    className="mb-[0.12rem] cursor-pointer rounded-md border border-orange-400 bg-slate-950 pl-1 font-semibold text-orange-400 shadow-md hover:bg-orange-500"
+                    className="relative mb-[0.12rem] cursor-pointer rounded-md border border-orange-400 bg-slate-950 pl-1 font-semibold text-orange-400 shadow-md hover:bg-orange-500"
                     key={movie.id}
                     onClick={() => {
                       navigate(`/movie/${movie.id}`);
@@ -72,7 +73,7 @@ export default function TrendingHome() {
                       </div>
                       <div className="bg-slate-950">
                         <p className="font-md bg-slate-950 text-[16px] text-orange-500">
-                          {movie.title}
+                          {movie.title.split(" ").slice(0, 3).join(" ")}
                         </p>
                         <p className="bg-slate-950 text-[14px] text-orange-400">
                           Rating: {movie.vote_average.toFixed(1)}/10
@@ -80,6 +81,11 @@ export default function TrendingHome() {
                         <p className="bg-slate-950 text-[14px] text-orange-400">
                           Release Date: {movie.release_date}
                         </p>
+                        <button className="rounded-sm bg-orange-400 px-1 py-[0.5px] hover:bg-orange-500">
+                          <p className="text-[14px] text-orange-950">
+                            Add to Library
+                          </p>
+                        </button>
                       </div>
                     </div>
                   </li>

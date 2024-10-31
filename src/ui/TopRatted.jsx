@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
 import { CgMoreR } from "react-icons/cg";
+import { FaBookmark } from "react-icons/fa";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
@@ -42,7 +43,7 @@ function TopRatted({ topRatted }) {
             <ul className="flex items-center justify-start gap-4">
               {trendingMovies.map((trendingMovie) => (
                 <li
-                  className="min-w-[10rem] max-w-[12rem] cursor-pointer bg-slate-900 hover:shadow-md"
+                  className="relative min-w-[10rem] max-w-[12rem] cursor-pointer bg-slate-900 hover:shadow-md"
                   key={trendingMovie.id}
                   onClick={() => navigate(`/movie/${trendingMovie.id}`)}
                 >
@@ -62,6 +63,9 @@ function TopRatted({ topRatted }) {
                       {trendingMovie.vote_average.toFixed(1)}/10
                     </p>
                   </div>
+                  <button>
+                    <FaBookmark className="absolute right-0 top-0 cursor-pointer text-xl text-orange-500 hover:text-orange-600" />
+                  </button>
                 </li>
               ))}
               <button
@@ -78,7 +82,7 @@ function TopRatted({ topRatted }) {
             <ul className="flex items-center justify-start gap-4">
               {trendingMovies.map((trendingMovie) => (
                 <li
-                  className="min-w-[10rem] max-w-[12rem] cursor-pointer bg-slate-900 hover:shadow-md"
+                  className="relative min-w-[10rem] max-w-[12rem] cursor-pointer bg-slate-900 hover:shadow-md"
                   key={trendingMovie.id}
                   onClick={() => navigate(`/series/${trendingMovie.id}`)}
                 >
@@ -98,6 +102,9 @@ function TopRatted({ topRatted }) {
                       {trendingMovie.vote_average.toFixed(1)}/10
                     </p>
                   </div>
+                  <button>
+                    <FaBookmark className="absolute right-0 top-0 cursor-pointer text-xl text-orange-500 hover:text-orange-600" />
+                  </button>
                 </li>
               ))}
               <button

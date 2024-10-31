@@ -1,10 +1,11 @@
+import { FaBookmark } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 function Series({ id, poster_path, title, release_date, vote_average }) {
   const navigate = useNavigate();
   return (
     <div
-      className="max-h-[18rem] min-w-[10rem] max-w-[10rem] cursor-pointer rounded-md bg-slate-900 hover:shadow-md"
+      className="relative max-h-[18rem] min-w-[10rem] max-w-[10rem] cursor-pointer rounded-md bg-slate-900 hover:shadow-md"
       onClick={() => {
         navigate(`/movie/${id}`);
       }}
@@ -19,6 +20,9 @@ function Series({ id, poster_path, title, release_date, vote_average }) {
         <p className="text-sm text-orange-400">{release_date}</p>
         <p className="text-sm text-orange-400">{vote_average.toFixed(1)}/10</p>
       </div>
+      <button>
+        <FaBookmark className="absolute right-0 top-0 cursor-pointer text-xl text-orange-500 hover:text-orange-600" />
+      </button>
     </div>
   );
 }
