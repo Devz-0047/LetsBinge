@@ -3,7 +3,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import { useNavigate } from "react-router-dom";
-import { FaBookmark } from "react-icons/fa";
+import toast from "react-hot-toast";
+import { useAddMovieToLibrary } from "../hooks/useAddMovieToLibrary";
+import { useAuth } from "../hooks/useAuth";
+import { fetchMovieInLibrary } from "../services/fetchMovieInLibrary";
+import { QueryClient } from "@tanstack/react-query";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 export default function TrendingHome() {
@@ -11,6 +15,40 @@ export default function TrendingHome() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const addMovieToLibrary = useAddMovieToLibrary();
+  const { data: session, isLoading: isSessionLoading } = useAuth();
+  const queryClient = new QueryClient();
+
+  const handleAddMovie = async (movieId) => {
+    // Check if the user is logged in
+    if (!session) {
+      toast.error("To add movies to the library, you need to login.");
+      return;
+    }
+    try {
+      const existingMovie = await queryClient.ensureQueryData({
+        queryKey: ["checkMovieInLibrary", movieId, session.user.id],
+        queryFn: () => fetchMovieInLibrary(movieId, session.user.id),
+      });
+      if (existingMovie) {
+        toast.error("This movie is already in your library.");
+        return;
+      }
+
+      addMovieToLibrary.mutate(
+        { movieId, userId: session.user.id },
+        {
+          onError: () => {
+            toast.error("Failed to add movie. Please try again.");
+          },
+          onSuccess: () => {},
+        },
+      );
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occurred while checking the library.");
+    }
+  };
   // navigate(`/movie/${movie.id}`) =   window.location.href = `/movie/${movie.id}`;
   //https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}
 
@@ -81,7 +119,13 @@ export default function TrendingHome() {
                         <p className="bg-slate-950 text-[14px] text-orange-400">
                           Release Date: {movie.release_date}
                         </p>
-                        <button className="rounded-sm bg-orange-400 px-1 py-[0.5px] hover:bg-orange-500">
+                        <button
+                          className="rounded-sm bg-orange-400 px-1 py-[0.5px] hover:bg-orange-500"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            handleAddMovie(movie.id);
+                          }}
+                        >
                           <p className="text-[14px] text-orange-950">
                             Add to Library
                           </p>

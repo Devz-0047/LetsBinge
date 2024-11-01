@@ -3,6 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "./Spinner";
 import axios from "axios";
 import { FiX } from "react-icons/fi";
+import toast from "react-hot-toast";
+import { QueryClient } from "@tanstack/react-query";
+import { fetchMovieInLibrary } from "../services/fetchMovieInLibrary";
+import { useAuth } from "../hooks/useAuth";
+import { useAddMovieToLibrary } from "../hooks/useAddMovieToLibrary";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 function MoviePage() {
@@ -14,6 +19,39 @@ function MoviePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const addMovieToLibrary = useAddMovieToLibrary();
+  const { data: session, isLoading: isSessionLoading } = useAuth();
+  const queryClient = new QueryClient();
+  const handleAddMovie = async (movieId) => {
+    // Check if the user is logged in
+    if (!session) {
+      toast.error("To add movies to the library, you need to login.");
+      return;
+    }
+    try {
+      const existingMovie = await queryClient.ensureQueryData({
+        queryKey: ["checkMovieInLibrary", movieId, session.user.id],
+        queryFn: () => fetchMovieInLibrary(movieId, session.user.id),
+      });
+      if (existingMovie) {
+        toast.error("This movie is already in your library.");
+        return;
+      }
+
+      addMovieToLibrary.mutate(
+        { movieId, userId: session.user.id },
+        {
+          onError: () => {
+            toast.error("Failed to add movie. Please try again.");
+          },
+          onSuccess: () => {},
+        },
+      );
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occurred while checking the library.");
+    }
+  };
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
@@ -103,6 +141,15 @@ function MoviePage() {
               <strong>Description:</strong>
             </h2>
             <p className="text-md text-orange-300">{movie.overview}</p>
+            <button
+              className="mt-1 rounded-sm bg-orange-300 px-2 py-[0.12rem] text-orange-900 hover:bg-orange-400"
+              onClick={(event) => {
+                event.stopPropagation();
+                handleAddMovie(movie.id);
+              }}
+            >
+              <strong>Add to Library</strong>
+            </button>
           </div>
           <button
             className="self-start"
@@ -110,7 +157,7 @@ function MoviePage() {
               navigate(-1);
             }}
           >
-            <FiX className="h-6 w-6 cursor-pointer rounded-md bg-orange-200 text-orange-500 hover:bg-orange-600" />
+            <FiX className="h-6 w-6 cursor-pointer text-orange-500 hover:text-orange-600" />
           </button>
         </>
       )}

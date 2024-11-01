@@ -4,6 +4,11 @@ import { useNavigate } from "react-router-dom";
 import Spinner from "./Spinner";
 import { CgMoreR } from "react-icons/cg";
 import { FaBookmark } from "react-icons/fa";
+import { QueryClient } from "@tanstack/react-query";
+import { useAuth } from "../hooks/useAuth";
+import toast from "react-hot-toast";
+import { fetchMovieInLibrary } from "../services/fetchMovieInLibrary";
+import { useAddMovieToLibrary } from "../hooks/useAddMovieToLibrary";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
@@ -12,6 +17,40 @@ function MovieCard({ timeWindowMovies }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const queryClient = new QueryClient();
+  const { data: session, isLoading: isSessionLoading } = useAuth();
+  const addMovieToLibrary = useAddMovieToLibrary();
+
+  const handleAddMovie = async (movieId) => {
+    // Check if the user is logged in
+    if (!session) {
+      toast.error("To add movies to the library, you need to login.");
+      return;
+    }
+    try {
+      const existingMovie = await queryClient.ensureQueryData({
+        queryKey: ["checkMovieInLibrary", movieId, session.user.id],
+        queryFn: () => fetchMovieInLibrary(movieId, session.user.id),
+      });
+      if (existingMovie) {
+        toast.error("This movie is already in your library.");
+        return;
+      }
+
+      addMovieToLibrary.mutate(
+        { movieId, userId: session.user.id },
+        {
+          onError: () => {
+            toast.error("Failed to add movie. Please try again.");
+          },
+          onSuccess: () => {},
+        },
+      );
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occurred while checking the library.");
+    }
+  };
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -66,7 +105,12 @@ function MovieCard({ timeWindowMovies }) {
                   </p>
                 </div>
 
-                <button>
+                <button
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    handleAddMovie(trendingMovie.id);
+                  }}
+                >
                   <FaBookmark className="absolute right-0 top-0 cursor-pointer text-xl text-orange-500 hover:text-orange-600" />
                 </button>
               </li>

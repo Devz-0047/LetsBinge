@@ -8,6 +8,9 @@ import axios from "axios";
 import Spinner from "../ui/Spinner";
 import { useAuth } from "../hooks/useAuth";
 import { useGoogleSignIn } from "../hooks/useGoogleSignIn";
+import { useGoogleSignOut } from "../hooks/useGoogleSignOut";
+import toast from "react-hot-toast";
+
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const genresList = [
   { id: 28, name: "Action" },
@@ -47,6 +50,7 @@ function NavBar() {
   const navigate = useNavigate();
   const { mutate: googleSignIn, isLoading: isSingnIn } = useGoogleSignIn();
   const { data: session, isLoading: isSessionLoading } = useAuth();
+  const { mutate: googleSignOut, isLoading: isSigningOut } = useGoogleSignOut();
   const avatarUrl = session?.user?.user_metadata?.avatar_url;
   useEffect(() => {
     let cancel;
@@ -227,12 +231,19 @@ function NavBar() {
               className="cursor-pointer bg-slate-950"
               onClick={() => {
                 googleSignIn();
+                toast.success("Successfully, Login In");
               }}
             >
               <FaUserAltSlash className="h-[26px] w-[26px] bg-slate-950" />
             </li>
           ) : (
-            <li className="bg-slate-950">
+            <li
+              className="cursor-pointer bg-slate-950"
+              onClick={() => {
+                googleSignOut();
+                toast.success("Successfully, Sign Out");
+              }}
+            >
               <img src={`${avatarUrl}`} className="h-8 rounded-full" />
             </li>
           )}

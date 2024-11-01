@@ -30,3 +30,6 @@
 .scrollable-element:hover {
   scrollbar-color: #555 #f1f1f1; /* thumb color, track color when hovered */
 }
+::selection {
+  background-color: rgb(254 215 170); /*  desired color for selection  */
+}

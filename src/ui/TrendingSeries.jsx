@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Series from "./Series";
 import Spinner from "./Spinner";
 import { useNavigate, useParams } from "react-router-dom";
-
+// import toast from "react-hot-toast";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 function TrendingSeries() {
   const navigate = useNavigate();
@@ -70,7 +70,9 @@ function TrendingSeries() {
       <div className="mt-4 flex justify-center space-x-2">
         {Array.from({ length: totalPages }, (_, index) => (
           <button
-            onClick={() => handlePageChange(index + 1)}
+            onClick={() => {
+              handlePageChange(index + 1);
+            }}
             key={index}
             className={`mb-4 rounded-md border px-3 py-1 ${currentPage === index + 1 ? "bg-orange-500 text-slate-950 hover:bg-orange-600" : "bg-orange-300 text-slate-950 hover:bg-orange-400"}`}
           >

@@ -5,6 +5,7 @@ import SeriesCard from "../ui/SeriesCard";
 import { FaTrophy } from "react-icons/fa";
 import TopRatted from "../ui/TopRatted";
 import Spinner from "../ui/Spinner";
+import toast from "react-hot-toast";
 // import { Outlet } from "react-router-dom";
 function Trending() {
   const [timeWindowMovies, setTimeWindowMovies] = useState("day");
