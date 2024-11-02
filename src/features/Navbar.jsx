@@ -136,28 +136,28 @@ function NavBar() {
           <input
             type="text"
             placeholder="Search Movies/Series"
-            className="font-weight-bold h-10 rounded-l-md rounded-r-none bg-orange-200 pl-2 pr-16 text-lg text-orange-700 outline-none placeholder:text-orange-500"
+            className="font-weight-bold h-10 rounded-l-md rounded-r-none bg-orange-300 pl-2 pr-16 text-lg text-orange-700 outline-none placeholder:text-orange-500"
             onChange={(e) => setSearchMovie(e.target.value)}
             value={searchMovie}
           />
           {searchMovie ? (
             <button
-              className="h-10 rounded-r-none bg-orange-200 px-2"
+              className="h-10 rounded-r-none bg-orange-300 px-2"
               onClick={() => {
                 setSearchMovie("");
                 setMovies([]);
               }}
             >
-              <FiX className="h-6 w-6 bg-orange-200 text-orange-500" />
+              <FiX className="h-6 w-6 bg-orange-300 text-orange-500" />
             </button>
           ) : (
             ""
           )}
           <button
             type="submit"
-            className="h-10 rounded-r-md bg-orange-200 px-2"
+            className="h-10 rounded-r-md bg-orange-300 px-2"
           >
-            <FiSearch className="h-6 w-6 bg-orange-200 text-orange-500" />
+            <FiSearch className="h-6 w-6 bg-orange-300 text-orange-500" />
           </button>
 
           {loading ? (

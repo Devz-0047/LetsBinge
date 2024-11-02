@@ -1,14 +1,14 @@
+import { useAuth } from "../hooks/useAuth";
+
 // import heroSection from "../assets/HeroSection.webp";
 function HeroSection() {
+  const { data: session } = useAuth();
   return (
     <div className="relative flex h-screen w-full items-center justify-center">
       <div className="absolute inset-0 bg-heroSection bg-cover bg-center bg-no-repeat opacity-75"></div>
       <p className="relative z-10 text-6xl text-orange-600">
-        Welcome to letsbinge, Register Now{" "}
-        <p className="font-bold text-red-600">
-          This website is currently under development, Library page is yet to
-          complete.
-        </p>
+        Welcome to letsbinge {session?.user?.user_metadata?.name?.split(" ")[0]}
+        , Register Now
       </p>
     </div>
   );

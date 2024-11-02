@@ -46,7 +46,7 @@ function TrendingSeries() {
         Trending Series
       </h2>
       {movieList.length > 0 ? (
-        <ul className="ml-10 grid grid-cols-6 gap-4">
+        <ul>
           {paginatedMovies.map((movie) => (
             <li
               key={movie.id}

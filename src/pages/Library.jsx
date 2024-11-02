@@ -4,6 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 import Spinner from "../ui/Spinner";
 import Login from "./Login";
 import { useEffect } from "react";
+import LibraryContent from "../ui/LibraryContent";
 
 function Library() {
   const { data: session, isLoading: isSessionLoading } = useAuth();
@@ -24,11 +25,18 @@ function Library() {
       </div>
     );
   return (
-    <div className="z-50 flex min-h-screen items-center justify-center bg-stone-900">
+    <div>
       {!session ? (
-        <Login />
+        <div className="z-50 flex min-h-screen items-center justify-center bg-stone-900">
+          <Login />
+        </div>
       ) : (
-        <p className="text-xl text-orange-500">Welcome, {firstName}</p>
+        <div className="min-h-screen bg-stone-900 pl-2 pt-[7rem]">
+          <p className="text-center text-4xl font-semibold text-orange-600">
+            Welcome to Library, {firstName}
+          </p>
+          <LibraryContent />
+        </div>
       )}
     </div>
   );
