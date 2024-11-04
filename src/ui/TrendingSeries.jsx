@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Series from "./Series";
 import Spinner from "./Spinner";
 import { useNavigate, useParams } from "react-router-dom";
+// #6900ff
 // import toast from "react-hot-toast";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 function TrendingSeries() {

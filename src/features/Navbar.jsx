@@ -123,7 +123,7 @@ function NavBar() {
         <NavLink to="/">
           <img
             src={logo}
-            className="ml-4 mt-1 h-12 w-[12rem] bg-slate-950 pr-4"
+            className="ml-4 mt-1 h-[48px] w-[192px] bg-slate-950 pr-4"
           />
         </NavLink>
       </div>
