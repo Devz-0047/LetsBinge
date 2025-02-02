@@ -82,7 +82,7 @@ export default function TrendingHome() {
   }, [API_KEY]); // Add API_KEY as a dependency (if it changes, the effect runs again)
 
   return (
-    <div className="x mt-[6rem] max-h-[40rem] max-w-[17.5rem] overflow-y-auto rounded-r-md bg-slate-950">
+    <div className="x fixed mt-[6rem] max-h-[40rem] max-w-[17.5rem] overflow-y-auto rounded-r-md bg-slate-950 pb-2">
       {loading ? (
         <Spinner w="12" h="12" />
       ) : (

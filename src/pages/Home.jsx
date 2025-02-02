@@ -47,7 +47,7 @@ function Home() {
       </div>
 
       {/* Footer */}
-      <div className="w-full bg-zinc-900">
+      <div className="w-6/7 ml-[14rem] bg-zinc-900">
         <Footer />
       </div>
     </div>
