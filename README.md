@@ -17,6 +17,7 @@ Let'sBinge is a movie management and library web application that allows users t
 - **State Management:** Redux Toolkit (RTK)
 - **Data Fetching:** TanStack Query (React Query)
 - **Authentication & Database:** Supabase
+- **API:** TMDB API
 - **Animations:** Framer Motion
 
 ## Getting Started
@@ -32,7 +33,7 @@ Ensure you have the following installed:
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/letsbinge.git
+   git clone https://github.com/Devz-0047/LetsBinge.git
    cd letsbinge
    ```
 2. Install dependencies:
@@ -94,8 +95,8 @@ This project is licensed under the MIT License.
 
 For any queries or suggestions, feel free to reach out:
 
-- **GitHub:** [yourusername](https://github.com/yourusername)
-- **Email:** your.email@example.com
+- **GitHub:** https://github.com/Devz-0047
+- **Email:** singhdevender423@gmail.com
 
 ---
 
