@@ -19,7 +19,7 @@ Let'sBinge is a movie management and library web application that allows users t
 - **Authentication & Database:** Supabase
 - **API:** TMDB API
 - **Animations:** Framer Motion
-
+ 
 ## Getting Started
 
 ### Prerequisites
