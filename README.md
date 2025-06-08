@@ -1,6 +1,6 @@
 # Let'sBinge
 
-Let'sBinge is a movie management and library web application that allows users to explore, manage, and save their favorite movies and TV shows. It provides an intuitive interface for browsing trending content, searching for specific titles, and organizing a personal watchlist.
+Let'sBinge is a movie management and library web application that allows users to explore, manage, and save their favorite movies and TV shows. It provides an intuitive interface for browsing trending content, searching for specific titles, and organizing a personal watchlist. 
 
 ## Features
 
