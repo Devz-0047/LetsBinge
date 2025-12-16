@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
-import { FiSearch, FiX } from "react-icons/fi";
+import { FiSearch, FiX, FiMenu } from "react-icons/fi";
 // import { LuUserCheck } from "react-icons/lu";
 import { FaUserAltSlash } from "react-icons/fa";
 import { useEffect, useState } from "react";
@@ -47,6 +47,7 @@ function NavBar() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const { mutate: googleSignIn, isLoading: isSingnIn } = useGoogleSignIn();
   const { data: session, isLoading: isSessionLoading } = useAuth();
@@ -118,136 +119,166 @@ function NavBar() {
   };
 
   return (
-    <div className="fixed left-0 top-0 z-50 flex min-h-[6rem] w-full items-center justify-between bg-slate-950">
-      <div className="bg-slate-950">
+    <div className="fixed left-0 top-0 z-50 flex w-full flex-col items-center justify-between bg-slate-950 px-4 py-2 md:min-h-[6rem] md:flex-row md:px-8">
+      <div className="relative z-50 flex w-full items-center justify-between bg-slate-950 md:w-auto md:justify-start">
         <NavLink to="/">
           <img
             src={logo}
-            className="ml-4 mt-1 h-[48px] w-[192px] bg-slate-950 pr-4"
+            className="mt-1 h-[40px] w-auto bg-slate-950 md:h-[48px] md:w-[192px]"
+            alt="LetsBinge Logo"
           />
         </NavLink>
-      </div>
-
-      <div className="mt-1 flex items-center justify-center bg-slate-950">
-        <form
-          className="relative ml-[32rem] flex items-center justify-center bg-slate-950"
-          onSubmit={handleForm}
+        {/* Hamburger Menu Icon */}
+        <button
+          className="text-orange-600 focus:outline-none md:hidden"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          <input
-            type="text"
-            placeholder="Search Movies/Series"
-            className="font-weight-bold h-10 rounded-l-md rounded-r-none bg-orange-300 pl-2 pr-16 text-lg text-orange-700 outline-none placeholder:text-orange-500"
-            onChange={(e) => setSearchMovie(e.target.value)}
-            value={searchMovie}
-          />
-          {searchMovie ? (
-            <button
-              className="h-10 rounded-r-none bg-orange-300 px-2"
-              onClick={() => {
-                setSearchMovie("");
-                setMovies([]);
-              }}
-            >
-              <FiX className="h-6 w-6 bg-orange-300 text-orange-500" />
-            </button>
-          ) : (
-            ""
-          )}
-          <button
-            type="submit"
-            className="h-10 rounded-r-md bg-orange-300 px-2"
-          >
-            <FiSearch className="h-6 w-6 bg-orange-300 text-orange-500" />
-          </button>
-
-          {loading ? (
-            <div className="absolute top-14 z-10 mt-2 max-h-[20rem] w-full overflow-y-auto rounded-md border bg-orange-200 shadow-lg">
-              <Spinner w="12" h="12" />
-            </div>
-          ) : (
-            <>
-              {movies.length > 0 && (
-                <ul className="absolute top-14 z-10 mt-2 max-h-[20rem] w-full overflow-y-auto rounded-md border bg-orange-200 shadow-lg">
-                  {movies.map((movie) => (
-                    <li
-                      key={movie.id}
-                      className="flex cursor-pointer items-center border-b bg-orange-200 p-3"
-                      onClick={() => {
-                        let type =
-                          movie.media_type === "tv" ? "series" : "movie";
-                        setSearchMovie("");
-                        setMovies([]);
-
-                        navigate(`/${type}/${movie.id}`);
-                        // navigate(`/movie/${movie.id}`) =   window.location.href = `/movie/${movie.id}`;
-                      }}
-                    >
-                      <img
-                        src={getMovieCoverUrl(movie)}
-                        alt={movie.title}
-                        className="mr-4 h-16 w-12"
-                      />
-                      <div className="bg-orange-200">
-                        <strong className="bg-orange-200 text-orange-700">
-                          {movie.title || movie.name}
-                        </strong>
-                        <p className="text-md font-md bg-orange-200 text-sm text-orange-600">
-                          {getGenreNames(movie.genre_ids)}
-                        </p>
-                        <p className="text-md font-md bg-orange-200 text-sm text-orange-600">
-                          {movie.release_date?.split("-")[0] ||
-                            movie.first_air_date?.split("-")[0] ||
-                            "N/A"}
-                        </p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </>
-          )}
-        </form>
+          {isMenuOpen ? <FiX size={30} /> : <FiMenu size={30} />}
+        </button>
       </div>
 
-      <div className="flex items-center justify-center bg-slate-950 pr-8 text-xl font-semibold text-orange-600">
-        <ul className="flex items-center space-x-4 bg-slate-950">
-          <li className="bg-slate-950">
-            <NavLink className="bg-slate-950" to="/">
-              Home
-            </NavLink>
-          </li>
-          <li className="bg-slate-950">
-            <NavLink className="bg-slate-950" to="/Library">
-              Library
-            </NavLink>
-          </li>
-          <li className="bg-slate-950">
-            <NavLink className="bg-slate-950" to="/Discover">
-              Discover
-            </NavLink>
-          </li>
-          {!session ? (
-            <li
-              className="cursor-pointer bg-slate-950"
-              onClick={() => {
-                googleSignIn();
-                toast.success("Successfully, Login In");
-              }}
+      {/* Mobile Overlay / Desktop Menu */}
+      <div
+        className={`${isMenuOpen ? "translate-x-0" : "translate-x-full"
+          } fixed inset-0 z-40 flex flex-col items-center justify-center bg-slate-950 p-8 pt-24 transition-transform duration-300 ease-in-out md:static md:z-auto md:translate-x-0 md:flex md:w-auto md:flex-grow md:flex-row md:items-center md:justify-between md:bg-transparent md:p-0 md:pt-0`}
+      >
+        {/* Search Bar */}
+        <div className="flex w-full items-center justify-center bg-slate-950 md:w-auto">
+          <form
+            className="relative flex w-full max-w-lg items-center justify-center bg-slate-950"
+            onSubmit={handleForm}
+          >
+            <input
+              type="text"
+              placeholder="Search Movies/Series"
+              className="font-weight-bold h-10 w-full rounded-l-md rounded-r-none bg-orange-300 pl-2 pr-16 text-lg text-orange-700 outline-none placeholder:text-orange-500"
+              onChange={(e) => setSearchMovie(e.target.value)}
+              value={searchMovie}
+            />
+            {searchMovie ? (
+              <button
+                className="h-10 rounded-r-none bg-orange-300 px-2"
+                onClick={() => {
+                  setSearchMovie("");
+                  setMovies([]);
+                }}
+              >
+                <FiX className="h-6 w-6 bg-orange-300 text-orange-500" />
+              </button>
+            ) : (
+              ""
+            )}
+            <button
+              type="submit"
+              className="h-10 rounded-r-md bg-orange-300 px-2"
             >
-              <FaUserAltSlash className="h-[26px] w-[26px] bg-slate-950" />
+              <FiSearch className="h-6 w-6 bg-orange-300 text-orange-500" />
+            </button>
+
+            {loading ? (
+              <div className="absolute top-14 z-10 mt-2 max-h-[20rem] w-full overflow-y-auto rounded-md border bg-orange-200 shadow-lg">
+                <Spinner w="12" h="12" />
+              </div>
+            ) : (
+              <>
+                {movies.length > 0 && (
+                  <ul className="absolute top-14 z-10 mt-2 max-h-[20rem] w-full overflow-y-auto rounded-md border bg-orange-200 shadow-lg">
+                    {movies.map((movie) => (
+                      <li
+                        key={movie.id}
+                        className="flex cursor-pointer items-center border-b bg-orange-200 p-3"
+                        onClick={() => {
+                          let type =
+                            movie.media_type === "tv" ? "series" : "movie";
+                          setSearchMovie("");
+                          setMovies([]);
+
+                          navigate(`/${type}/${movie.id}`);
+                          // navigate(`/movie/${movie.id}`) =   window.location.href = `/movie/${movie.id}`;
+                        }}
+                      >
+                        <img
+                          src={getMovieCoverUrl(movie)}
+                          alt={movie.title}
+                          className="mr-4 h-16 w-12"
+                        />
+                        <div className="bg-orange-200">
+                          <strong className="bg-orange-200 text-orange-700">
+                            {movie.title || movie.name}
+                          </strong>
+                          <p className="text-md font-md bg-orange-200 text-sm text-orange-600">
+                            {getGenreNames(movie.genre_ids)}
+                          </p>
+                          <p className="text-md font-md bg-orange-200 text-sm text-orange-600">
+                            {movie.release_date?.split("-")[0] ||
+                              movie.first_air_date?.split("-")[0] ||
+                              "N/A"}
+                          </p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </>
+            )}
+          </form>
+        </div>
+
+        {/* Navigation Links */}
+        <div className="mt-8 flex w-full flex-col items-center justify-center bg-slate-950 text-xl font-semibold text-orange-600 md:mt-0 md:w-auto md:flex-row md:justify-end">
+          <ul className="flex flex-col items-center space-y-6 md:flex-row md:space-x-4 md:space-y-0 bg-slate-950">
+            <li className="bg-slate-950">
+              <NavLink
+                className="bg-slate-950"
+                to="/"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Home
+              </NavLink>
             </li>
-          ) : (
-            <li
-              className="cursor-pointer bg-slate-950"
-              onClick={() => {
-                googleSignOut();
-                toast.success("Successfully, Sign Out");
-              }}
-            >
-              <img src={`${avatarUrl}`} className="h-8 rounded-full" />
+            <li className="bg-slate-950">
+              <NavLink
+                className="bg-slate-950"
+                to="/Library"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Library
+              </NavLink>
             </li>
-          )}
-        </ul>
+            <li className="bg-slate-950">
+              <NavLink
+                className="bg-slate-950"
+                to="/Discover"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Discover
+              </NavLink>
+            </li>
+            {!session ? (
+              <li
+                className="cursor-pointer bg-slate-950"
+                onClick={() => {
+                  googleSignIn();
+                  toast.success("Successfully, Login In");
+                  setIsMenuOpen(false);
+                }}
+              >
+                <FaUserAltSlash className="h-[26px] w-[26px] bg-slate-950" />
+              </li>
+            ) : (
+              <li
+                className="cursor-pointer bg-slate-950"
+                onClick={() => {
+                  googleSignOut();
+                  toast.success("Successfully, Sign Out");
+                  setIsMenuOpen(false);
+                }}
+              >
+                <img src={`${avatarUrl}`} className="h-8 rounded-full" />
+              </li>
+            )}
+          </ul>
+        </div>
       </div>
     </div>
   );
