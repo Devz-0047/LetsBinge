@@ -140,7 +140,7 @@ function NavBar() {
       {/* Mobile Overlay / Desktop Menu */}
       <div
         className={`${isMenuOpen ? "translate-x-0" : "translate-x-full"
-          } fixed inset-0 z-40 flex flex-col items-center justify-center bg-slate-950 p-8 pt-24 transition-transform duration-300 ease-in-out md:static md:z-auto md:translate-x-0 md:flex md:w-auto md:flex-grow md:flex-row md:items-center md:justify-between md:bg-transparent md:p-0 md:pt-0`}
+          } fixed inset-0 z-40 flex flex-col items-center justify-center bg-slate-950 p-8 pt-24 transition-transform duration-300 ease-in-out md:static md:z-auto md:flex md:w-auto md:flex-grow md:translate-x-0 md:flex-row md:items-center md:justify-end md:gap-8 md:bg-transparent md:p-0 md:pt-0`}
       >
         {/* Search Bar */}
         <div className="flex w-full items-center justify-center bg-slate-950 md:w-auto">
